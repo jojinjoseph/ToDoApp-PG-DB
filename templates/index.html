@@ -119,9 +119,9 @@
       <ul>
         {% for todo in todolist %}
         <li class="todo-item">
-          {{ todo.strip() }}
+          {{ todo.title }}
           <form method="POST" style="display:inline;">
-            <button name="remove" value="{{ todo.strip() }}">Done</button>
+            <button name="remove" value="{{ todo.title  }}">Done</button>
           </form>
         </li>
         {% endfor %}

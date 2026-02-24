@@ -4,14 +4,21 @@ import os
 
 app = Flask(__name__)
 
-# PostgreSQL connection string
-# Example:
-# postgres://username:password@localhost:5432/dbname
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:password@localhost:5432/tododb"
-)
+# direct connection
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+#     "DATABASE_URL",
+#     "postgresql://todoapp:Adcb%401234@pgdbadmin.postgres.database.azure.com:5432/tododb?sslmode=require"
+# )
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+#
+database_url = os.environ.get("DATABASE_URL")
+
+if not database_url:
+    raise ValueError("DATABASE_URL environment variable not set")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 
 db = SQLAlchemy(app)
 
